@@ -5,3 +5,5 @@ repositories:
 artifacts:
   javax_servlet: org.apache.geronimo.specs:geronimo-servlet_3.0_spec:jar:1.0
   javax_annotation: com.google.code.findbugs:jsr305:jar:2.0.1
+
+  mockito: org.mockito:mockito-all:jar:1.9.5

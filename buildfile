@@ -18,6 +18,8 @@ define 'simple-session-filter' do
 
   compile.with PROVIDED_DEPS
 
+  test.with :mockito
+
   package(:jar)
   package(:sources)
   package(:javadoc)
