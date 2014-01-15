@@ -1,11 +1,13 @@
 package org.realityforge.ssf;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import static org.mockito.Mockito.*;
 import static org.testng.Assert.*;
+import static org.testng.Assert.assertEquals;
 
 public class HttpUtilTest
 {
@@ -34,6 +36,21 @@ public class HttpUtilTest
     when( request.getServerName() ).thenReturn( serverName );
     when( request.getContextPath() ).thenReturn( contextPath );
     assertEquals( HttpUtil.getContextURL( request ).toString(), expected );
+  }
+
+  @Test
+  public void getContextLocalPath()
+  {
+    final String requestURI = "/myapp/foo.txt";
+    final String contextPath = "/myapp";
+    final String expected = "/foo.txt";
+    final HttpServletRequest request = mock( HttpServletRequest.class );
+    when( request.getRequestURI() ).thenReturn( requestURI );
+    final ServletContext context = mock( ServletContext.class );
+    when(context.getContextPath()).thenReturn( contextPath );
+    when( request.getServletContext() ).thenReturn( context );
+
+    assertEquals( HttpUtil.getContextLocalPath( request ), expected );
   }
 
   @Test

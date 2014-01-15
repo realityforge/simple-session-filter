@@ -41,6 +41,20 @@ public final class HttpUtil
   }
 
   /**
+   * Return the component of the uri below the context.
+   *
+   * @param request the incoming request.
+   * @return the context local path.
+   */
+  @Nonnull
+  public static String getContextLocalPath( @Nonnull final HttpServletRequest request )
+  {
+    final String requestURI = request.getRequestURI();
+    final String contextPath = request.getServletContext().getContextPath();
+    return requestURI.substring( contextPath.length() );
+  }
+
+  /**
    * Return the value of the cookie with the specified name or null if no such cookie.
    *
    * @param request the incoming request.
