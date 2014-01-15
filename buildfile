@@ -1,5 +1,7 @@
 require 'buildr/git_auto_version'
 
+PROVIDED_DEPS = [:javax_servlet, :javax_annotation]
+
 desc 'A simple servlet filter for implementing custom session management'
 define 'simple-session-filter' do
   project.group = 'org.realityforge.ssf'
@@ -12,9 +14,9 @@ define 'simple-session-filter' do
   pom.add_apache2_license
   pom.add_github_project('realityforge/simple-session-filter')
   pom.add_developer('realityforge', 'Peter Donald')
-  pom.provided_dependencies.concat [:javax_servlet]
+  pom.provided_dependencies.concat PROVIDED_DEPS
 
-  compile.with :javax_servlet
+  compile.with PROVIDED_DEPS
 
   package(:jar)
   package(:sources)
