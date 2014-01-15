@@ -18,6 +18,7 @@ define 'simple-session-filter' do
 
   compile.with PROVIDED_DEPS
 
+  test.using :testng
   test.with :mockito
 
   package(:jar)
