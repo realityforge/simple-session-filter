@@ -1,5 +1,7 @@
 package org.realityforge.ssf;
 
+import java.net.URI;
+import java.net.URISyntaxException;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.servlet.ServletException;
@@ -39,6 +41,29 @@ public final class HttpUtil
     url.append( request.getContextPath() );
 
     return url;
+  }
+
+  /**
+   * Return the local URL within the servlet context.
+   *
+   * @param request the incoming request.
+   * @param localPath the local short path request.
+   * @return the url.
+   */
+  @Nonnull
+  public static String getContextURL( @Nonnull final HttpServletRequest request, final String localPath )
+  {
+    return HttpUtil.getContextURL( request ).append( localPath ).toString();
+  }
+
+  /**
+   * Return the URI for a local url within a context.
+   */
+  @Nonnull
+  public static URI getContextURI( @Nonnull final HttpServletRequest request, final String localPath )
+    throws URISyntaxException
+  {
+    return new URI( HttpUtil.getContextURL( request, localPath ) );
   }
 
   /**

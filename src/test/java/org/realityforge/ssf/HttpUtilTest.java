@@ -38,6 +38,37 @@ public class HttpUtilTest
     assertEquals( HttpUtil.getContextURL( request ).toString(), expected );
   }
 
+  @Test( dataProvider = "contextURL" )
+  public void getContextURLWithLocalPath( final String scheme,
+                                          final int port,
+                                          final String serverName,
+                                          final String contextPath,
+                                          final String expected )
+  {
+    final HttpServletRequest request = mock( HttpServletRequest.class );
+    when( request.getScheme() ).thenReturn( scheme );
+    when( request.getServerPort() ).thenReturn( port );
+    when( request.getServerName() ).thenReturn( serverName );
+    when( request.getContextPath() ).thenReturn( contextPath );
+    assertEquals( HttpUtil.getContextURL( request, "/foo/bar" ), expected + "/foo/bar" );
+  }
+
+  @Test( dataProvider = "contextURL" )
+  public void getContextURI( final String scheme,
+                             final int port,
+                             final String serverName,
+                             final String contextPath,
+                             final String expected )
+    throws Exception
+  {
+    final HttpServletRequest request = mock( HttpServletRequest.class );
+    when( request.getScheme() ).thenReturn( scheme );
+    when( request.getServerPort() ).thenReturn( port );
+    when( request.getServerName() ).thenReturn( serverName );
+    when( request.getContextPath() ).thenReturn( contextPath );
+    assertEquals( HttpUtil.getContextURI( request, "/foo/bar" ).toString(), expected + "/foo/bar" );
+  }
+
   @Test
   public void getContextLocalPath()
   {
