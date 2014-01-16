@@ -15,7 +15,6 @@ public abstract class InMemorySessionManager<T extends SessionInfo>
 {
   private final Map<String, T> _sessions =
     Collections.synchronizedMap( new HashMap<String, T>() );
-  private final Map<String, T> _roSessions = Collections.unmodifiableMap( _sessions );
 
   @Override
   @Nonnull
@@ -54,7 +53,7 @@ public abstract class InMemorySessionManager<T extends SessionInfo>
   @Nonnull
   protected final Map<String, T> getSessions()
   {
-    return _roSessions;
+    return _sessions;
   }
 
   @Nonnull
