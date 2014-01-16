@@ -46,7 +46,15 @@ public class SimpleSessionManager
   @Nonnull
   public SessionInfo createSession( @Nonnull final String username )
   {
+    final SessionInfo sessionInfo = newSessionInfo( username );
     _sessions.put( sessionInfo.getSessionID(), sessionInfo );
     return sessionInfo;
+  }
+
+  @Nonnull
+  protected SessionInfo newSessionInfo( @Nonnull final String username )
+  {
+    final String sessionID = UUID.randomUUID().toString();
+    return new SimpleSessionInfo( sessionID, username );
   }
 }
