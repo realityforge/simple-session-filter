@@ -3,7 +3,7 @@ package org.realityforge.ssf;
 import java.io.Serializable;
 import javax.annotation.Nonnull;
 
-final class SimpleSessionInfo
+public final class SimpleSessionInfo
   implements SessionInfo, Serializable
 {
   private final String _sessionID;
