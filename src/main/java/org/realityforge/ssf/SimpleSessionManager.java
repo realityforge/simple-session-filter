@@ -48,7 +48,7 @@ public class SimpleSessionManager
   {
     final String sessionID = UUID.randomUUID().toString();
     final SimpleSessionInfo sessionInfo = new SimpleSessionInfo( sessionID, username );
-    _sessions.put( sessionID, sessionInfo );
+    _sessions.put( sessionInfo.getSessionID(), sessionInfo );
     return sessionInfo;
   }
 }
