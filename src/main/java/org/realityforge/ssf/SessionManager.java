@@ -6,7 +6,7 @@ import javax.annotation.Nullable;
 /**
  * A simple interface for managing session data.
  */
-public interface SessionManager
+public interface SessionManager<T extends SessionInfo>
 {
   /**
    * Return the key used to access session information.
@@ -25,7 +25,7 @@ public interface SessionManager
    * @return the associated session or null if no such session.
    */
   @Nullable
-  SessionInfo getSession( @Nonnull String sessionID );
+  T getSession( @Nonnull String sessionID );
 
   /**
    * Invalidate session with specified session ID.
@@ -44,5 +44,5 @@ public interface SessionManager
    * @return the new session.
    */
   @Nonnull
-  SessionInfo createSession( @Nonnull String username );
+  T createSession( @Nonnull String username );
 }
