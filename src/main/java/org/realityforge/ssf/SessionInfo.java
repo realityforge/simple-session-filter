@@ -28,4 +28,9 @@ public interface SessionInfo
    * @return the time at which session was last accessed.
    */
   long getLastAccessedAt();
+
+  /**
+   * Update the access time to now.
+   */
+  void updateAccessTime();
 }
