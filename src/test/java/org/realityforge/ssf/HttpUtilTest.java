@@ -1,6 +1,7 @@
 package org.realityforge.ssf;
 
 import javax.servlet.ServletContext;
+import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import org.testng.annotations.DataProvider;
@@ -46,10 +47,41 @@ public class HttpUtilTest
     final HttpServletRequest request = mock( HttpServletRequest.class );
     when( request.getRequestURI() ).thenReturn( requestURI );
     final ServletContext context = mock( ServletContext.class );
-    when(context.getContextPath()).thenReturn( contextPath );
+    when( context.getContextPath() ).thenReturn( contextPath );
     when( request.getServletContext() ).thenReturn( context );
 
     assertEquals( HttpUtil.getContextLocalPath( request ), expected );
+  }
+
+  @Test
+  public void authenticate_success()
+    throws Exception
+  {
+    final HttpServletRequest request = mock( HttpServletRequest.class );
+
+    final String username = "Bob";
+    final String password = "pass";
+
+    assertTrue( HttpUtil.authenticate( request, username, password ) );
+
+    verify( request ).login( username, password );
+    verify( request ).logout();
+  }
+
+  @Test
+  public void authenticate_failure()
+    throws Exception
+  {
+    final HttpServletRequest request = mock( HttpServletRequest.class );
+
+    final String username = "Bob";
+    final String password = "pass";
+
+    doThrow( new ServletException() ).when( request ).login( username, password );
+
+    assertFalse( HttpUtil.authenticate( request, username, password ) );
+
+    verify( request, never() ).logout();
   }
 
   @Test
@@ -58,7 +90,7 @@ public class HttpUtilTest
     final Cookie c1 = new Cookie( "c1", "v1" );
     final Cookie c2 = new Cookie( "c2", "v2" );
     testFindCookies( null, "Foo", null );
-    testFindCookies( new Cookie[0], c1.getName(), null );
+    testFindCookies( new Cookie[ 0 ], c1.getName(), null );
     testFindCookies( new Cookie[]{ c1 }, c1.getName(), c1 );
     testFindCookies( new Cookie[]{ c2 }, c1.getName(), null );
     testFindCookies( new Cookie[]{ c1, c2 }, c1.getName(), c1 );

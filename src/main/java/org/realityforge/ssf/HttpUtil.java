@@ -2,6 +2,7 @@ package org.realityforge.ssf;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 
@@ -38,6 +39,39 @@ public final class HttpUtil
     url.append( request.getContextPath() );
 
     return url;
+  }
+
+  /**
+   * Return true if username/password can successfully login to the container security.
+   * This is implemented by attempting to authenticate via request, then logging out if
+   * login was successful.
+   *
+   * @param request the incoming request.
+   * @param username the username to check.
+   * @param password the password credential.
+   * @return true if able to authenticate, false otherwise.
+   */
+  public static boolean authenticate( @Nonnull final HttpServletRequest request,
+                                      @Nonnull final String username,
+                                      @Nonnull final String password )
+  {
+    try
+    {
+      request.login( username, password );
+      try
+      {
+        request.logout();
+      }
+      catch ( final ServletException se1 )
+      {
+        //Ignore. Should never happen in theory
+      }
+      return true;
+    }
+    catch ( final ServletException se )
+    {
+      return false;
+    }
   }
 
   /**
