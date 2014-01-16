@@ -14,8 +14,8 @@ import javax.annotation.Nullable;
 public class SimpleSessionManager
   implements SessionManager, Serializable
 {
-  private final Map<String, SimpleSessionInfo> _sessions =
-    Collections.synchronizedMap( new HashMap<String, SimpleSessionInfo>() );
+  private final Map<String, SessionInfo> _sessions =
+    Collections.synchronizedMap( new HashMap<String, SessionInfo>() );
 
   @Override
   @Nonnull
@@ -34,7 +34,7 @@ public class SimpleSessionManager
   @Nullable
   public SessionInfo getSession( @Nonnull final String sessionID )
   {
-    final SimpleSessionInfo sessionInfo = _sessions.get( sessionID );
+    final SessionInfo sessionInfo = _sessions.get( sessionID );
     if( null != sessionInfo )
     {
       sessionInfo.updateAccessTime();
@@ -46,8 +46,6 @@ public class SimpleSessionManager
   @Nonnull
   public SessionInfo createSession( @Nonnull final String username )
   {
-    final String sessionID = UUID.randomUUID().toString();
-    final SimpleSessionInfo sessionInfo = new SimpleSessionInfo( sessionID, username );
     _sessions.put( sessionInfo.getSessionID(), sessionInfo );
     return sessionInfo;
   }
