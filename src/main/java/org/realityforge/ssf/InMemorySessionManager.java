@@ -26,7 +26,12 @@ public abstract class InMemorySessionManager<T extends SessionInfo>
   @Override
   public boolean invalidateSession( @Nonnull final String sessionID )
   {
-    return null != _sessions.remove( sessionID );
+    return null != removeSession( sessionID );
+  }
+
+  protected T removeSession( final String sessionID )
+  {
+    return _sessions.remove( sessionID );
   }
 
   @Override
