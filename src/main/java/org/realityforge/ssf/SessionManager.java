@@ -40,9 +40,8 @@ public interface SessionManager<T extends SessionInfo>
    * Create session for specified username.
    * It is assumed the username has already been authenticated and this is just tracking the session.
    *
-   * @param username the associated username.
    * @return the new session.
    */
   @Nonnull
-  T createSession( @Nonnull String username );
+  T createSession();
 }

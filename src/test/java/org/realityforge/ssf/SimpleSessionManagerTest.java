@@ -13,10 +13,14 @@ public class SimpleSessionManagerTest
     final SimpleSessionManager sm = new SimpleSessionManager();
     assertEquals( sm.getSessionKey(), "sid" );
     assertEquals( sm.getSession( "MySessionID" ), null );
-    final SessionInfo sessionInfo = sm.createSession( "Bob" );
+    final SessionInfo sessionInfo = sm.createSession();
     assertNotNull( sessionInfo );
     assertNotNull( sessionInfo.getSessionID() );
-    assertEquals( sessionInfo.getUsername(), "Bob" );
+    assertEquals( sessionInfo.getAttribute( "Username" ), null );
+    sessionInfo.setAttribute( "Username", "Bob" );
+    assertEquals( sessionInfo.getAttribute( "Username" ), "Bob" );
+    sessionInfo.removeAttribute( "Username" );
+    assertEquals( sessionInfo.getAttribute( "Username" ), null );
     assertEquals( sessionInfo.getCreatedAt(), sessionInfo.getLastAccessedAt() );
     assertTrue( System.currentTimeMillis() - sessionInfo.getCreatedAt() < 100L );
     assertTrue( System.currentTimeMillis() - sessionInfo.getLastAccessedAt() < 100L );

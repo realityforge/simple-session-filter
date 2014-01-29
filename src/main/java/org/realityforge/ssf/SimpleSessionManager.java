@@ -10,9 +10,9 @@ public class SimpleSessionManager
   extends InMemorySessionManager<SimpleSessionInfo>
 {
   @Nonnull
-  protected SimpleSessionInfo newSessionInfo( @Nonnull final String username )
+  protected SimpleSessionInfo newSessionInfo()
   {
     final String sessionID = UUID.randomUUID().toString();
-    return new SimpleSessionInfo( sessionID, username );
+    return new SimpleSessionInfo( sessionID );
   }
 }

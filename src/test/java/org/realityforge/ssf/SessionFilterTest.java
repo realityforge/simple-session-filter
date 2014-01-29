@@ -58,7 +58,7 @@ public class SessionFilterTest
 
     when( filter.getSessionManager().getSessionKey() ).thenReturn( sid );
     when( request.getCookies() ).thenReturn( new Cookie[]{ new Cookie( sid, sessionID ) } );
-    when( filter.getSessionManager().getSession( sessionID ) ).thenReturn( new SimpleSessionInfo( sessionID, "Bob" ) );
+    when( filter.getSessionManager().getSession( sessionID ) ).thenReturn( new SimpleSessionInfo( sessionID ) );
 
     doFilter( filter, request, response, chain );
 

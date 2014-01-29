@@ -1,20 +1,22 @@
 package org.realityforge.ssf;
 
 import java.io.Serializable;
+import java.util.HashMap;
+import java.util.Map;
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 public class SimpleSessionInfo
   implements SessionInfo, Serializable
 {
   private final String _sessionID;
-  private final String _username;
   private long _createdAt;
   private long _lastAccessedAt;
+  private Map<String, Serializable> _attributes = new HashMap<>();
 
-  public SimpleSessionInfo( @Nonnull final String sessionID, @Nonnull final String username )
+  public SimpleSessionInfo( @Nonnull final String sessionID )
   {
     _sessionID = sessionID;
-    _username = username;
     _createdAt = _lastAccessedAt = System.currentTimeMillis();
   }
 
@@ -24,10 +26,23 @@ public class SimpleSessionInfo
     return _sessionID;
   }
 
-  @Nonnull
-  public String getUsername()
+  @Nullable
+  @Override
+  public Serializable getAttribute( @Nonnull final String key )
   {
-    return _username;
+    return _attributes.get( key );
+  }
+
+  @Override
+  public void setAttribute( @Nonnull final String key, @Nonnull final Serializable value )
+  {
+    _attributes.put( key, value );
+  }
+
+  @Override
+  public void removeAttribute( @Nonnull final String key )
+  {
+    _attributes.remove( key );
   }
 
   public long getCreatedAt()

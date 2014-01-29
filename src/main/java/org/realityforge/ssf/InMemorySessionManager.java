@@ -43,9 +43,9 @@ public abstract class InMemorySessionManager<T extends SessionInfo>
 
   @Override
   @Nonnull
-  public T createSession( @Nonnull final String username )
+  public T createSession()
   {
-    final T sessionInfo = newSessionInfo( username );
+    final T sessionInfo = newSessionInfo();
     _sessions.put( sessionInfo.getSessionID(), sessionInfo );
     return sessionInfo;
   }
@@ -57,5 +57,5 @@ public abstract class InMemorySessionManager<T extends SessionInfo>
   }
 
   @Nonnull
-  protected abstract T newSessionInfo( @Nonnull final String username );
+  protected abstract T newSessionInfo();
 }
