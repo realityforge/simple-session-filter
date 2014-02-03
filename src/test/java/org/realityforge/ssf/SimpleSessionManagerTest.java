@@ -25,6 +25,9 @@ public class SimpleSessionManagerTest
     assertTrue( System.currentTimeMillis() - sessionInfo.getLastAccessedAt() < 100L );
     Thread.sleep( 1 );
 
+    // Make sure we can also get it thorugh the map interface
+    assertEquals( sm.getSessions().get(  sessionInfo.getSessionID() ), sessionInfo );
+
     // The next line should update the last accessed time too!
     assertEquals( sm.getSession( sessionInfo.getSessionID() ), sessionInfo );
     assertNotEquals( sessionInfo.getCreatedAt(), sessionInfo.getLastAccessedAt() );
