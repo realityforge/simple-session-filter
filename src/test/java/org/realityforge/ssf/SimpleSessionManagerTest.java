@@ -9,7 +9,6 @@ public class SimpleSessionManagerTest
   public void basicWorkflow()
     throws Exception
   {
-
     final SimpleSessionManager sm = new SimpleSessionManager();
     assertEquals( sm.getSessionKey(), "sid" );
     assertEquals( sm.getSession( "MySessionID" ), null );
