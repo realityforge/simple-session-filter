@@ -16,6 +16,9 @@ public abstract class InMemorySessionManager<T extends SessionInfo>
   private final Map<String, T> _sessions =
     Collections.synchronizedMap( new HashMap<String, T>() );
 
+  /**
+   * {@inheritDoc}
+   */
   @Override
   @Nonnull
   public String getSessionKey()
@@ -23,17 +26,29 @@ public abstract class InMemorySessionManager<T extends SessionInfo>
     return "sid";
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public boolean invalidateSession( @Nonnull final String sessionID )
   {
     return null != removeSession( sessionID );
   }
 
+  /**
+   * Remove session with specified id.
+   *
+   * @param sessionID the session id.
+   * @return the session removed if any.
+   */
   protected T removeSession( final String sessionID )
   {
     return _sessions.remove( sessionID );
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Override
   @Nullable
   public T getSession( @Nonnull final String sessionID )
@@ -46,6 +61,9 @@ public abstract class InMemorySessionManager<T extends SessionInfo>
     return sessionInfo;
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Override
   @Nonnull
   public T createSession()
@@ -61,6 +79,11 @@ public abstract class InMemorySessionManager<T extends SessionInfo>
     return _sessions;
   }
 
+  /**
+   * Override method to create a new session.
+   *
+   * @return the new session.
+   */
   @Nonnull
   protected abstract T newSessionInfo();
 }

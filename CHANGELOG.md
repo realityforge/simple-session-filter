@@ -1,3 +1,6 @@
+## 0.3:
+* Improve the javadocs of InMemorySessionManager.
+
 ## 0.2:
 * Rework SimpleSessionInfo to support a mutable sessionID in sub-classes.
 * Rework SessionInfo to support setting of arbitrary attributes. Remove accessor for username and treat
