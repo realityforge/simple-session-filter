@@ -1,4 +1,6 @@
 ## 0.3:
+* Backport InMemorySessionManager.removeIdleSessions from downstream applications. This supports removal
+  of sessions that exceed an idle threshold.
 * Introduce a locking architecture in InMemorySessionManager to protect the session map in a concurrent
   application.
 * Make the InMemorySessionManager.getSessions() return an unmodifiable map to avoid invalid modification

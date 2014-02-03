@@ -128,4 +128,25 @@ public class SimpleSessionManagerTest
     Thread.sleep( 1 );
     return stop;
   }
+
+
+  @Test
+  public void removeIdleSessions()
+    throws Exception
+  {
+    final SimpleSessionManager sm = new SimpleSessionManager();
+    final SimpleSessionInfo session = sm.createSession();
+    final long accessedAt = session.getLastAccessedAt();
+    while ( System.currentTimeMillis() == accessedAt )
+    {
+      Thread.yield();
+    }
+    final int removeCount = sm.removeIdleSessions( 10000 );
+    assertEquals( removeCount, 0 );
+    assertEquals( sm.getSessions().get( session.getSessionID() ), session );
+
+    final int removeCount2 = sm.removeIdleSessions( 0 );
+    assertEquals( removeCount2, 1 );
+    assertNull( sm.getSessions().get( session.getSessionID() ) );
+  }
 }

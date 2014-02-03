@@ -3,7 +3,9 @@ package org.realityforge.ssf;
 import java.io.Serializable;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 import javax.annotation.Nonnull;
@@ -74,7 +76,7 @@ public abstract class InMemorySessionManager<T extends SessionInfo>
     {
       _lock.readLock().unlock();
     }
-    if( null != sessionInfo )
+    if ( null != sessionInfo )
     {
       sessionInfo.updateAccessTime();
     }
@@ -130,4 +132,38 @@ public abstract class InMemorySessionManager<T extends SessionInfo>
    */
   @Nonnull
   protected abstract T newSessionInfo();
+
+  /**
+   * Remove sessions that have not been accessed for the specified idle time.
+   *
+   * @param maxIdleTime the max idle time for a session.
+   * @return the number of sessions removed.
+   */
+  protected int removeIdleSessions( final long maxIdleTime )
+  {
+    int removedSessions = 0;
+    final long now = System.currentTimeMillis();
+    _lock.writeLock().lock();
+    try
+    {
+      final Iterator<Entry<String, T>> iterator = _sessions.entrySet().iterator();
+      while ( iterator.hasNext() )
+      {
+        final T session = iterator.next().getValue();
+        synchronized ( session )
+        {
+          if ( now - session.getLastAccessedAt() > maxIdleTime )
+          {
+            iterator.remove();
+            removedSessions++;
+          }
+        }
+      }
+    }
+    finally
+    {
+      _lock.writeLock().unlock();
+    }
+    return removedSessions;
+  }
 }
