@@ -1,4 +1,6 @@
 ## 0.3:
+* Introduce a locking architecture in InMemorySessionManager to protect the session map in a concurrent
+  application.
 * Make the InMemorySessionManager.getSessions() return an unmodifiable map to avoid invalid modification
   of the sessions map.
 * Improve the javadocs of InMemorySessionManager.

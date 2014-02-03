@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.locks.ReadWriteLock;
+import java.util.concurrent.locks.ReentrantReadWriteLock;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
@@ -13,8 +15,8 @@ import javax.annotation.Nullable;
 public abstract class InMemorySessionManager<T extends SessionInfo>
   implements SessionManager<T>, Serializable
 {
-  private final Map<String, T> _sessions =
-    Collections.synchronizedMap( new HashMap<String, T>() );
+  private final ReadWriteLock _lock = new ReentrantReadWriteLock();
+  private final Map<String, T> _sessions = new HashMap<>();
   private final Map<String, T> _roSessions = Collections.unmodifiableMap( _sessions );
 
   /**
@@ -44,7 +46,15 @@ public abstract class InMemorySessionManager<T extends SessionInfo>
    */
   protected T removeSession( final String sessionID )
   {
-    return _sessions.remove( sessionID );
+    _lock.writeLock().lock();
+    try
+    {
+      return _sessions.remove( sessionID );
+    }
+    finally
+    {
+      _lock.writeLock().unlock();
+    }
   }
 
   /**
@@ -54,7 +64,16 @@ public abstract class InMemorySessionManager<T extends SessionInfo>
   @Nullable
   public T getSession( @Nonnull final String sessionID )
   {
-    final T sessionInfo = _sessions.get( sessionID );
+    _lock.readLock().lock();
+    final T sessionInfo;
+    try
+    {
+      sessionInfo = _sessions.get( sessionID );
+    }
+    finally
+    {
+      _lock.readLock().unlock();
+    }
     if( null != sessionInfo )
     {
       sessionInfo.updateAccessTime();
@@ -70,12 +89,22 @@ public abstract class InMemorySessionManager<T extends SessionInfo>
   public T createSession()
   {
     final T sessionInfo = newSessionInfo();
-    _sessions.put( sessionInfo.getSessionID(), sessionInfo );
+    _lock.writeLock().lock();
+    try
+    {
+      _sessions.put( sessionInfo.getSessionID(), sessionInfo );
+    }
+    finally
+    {
+      _lock.writeLock().unlock();
+    }
     return sessionInfo;
   }
 
   /**
    * Return an unmodifiable map containing the set of sessions.
+   * The user should also acquire a read lock via {@link #getLock()} prior to invoking
+   * this method ensure it is not modified while being inspected.
    *
    * @return an unmodifiable map containing the set of sessions.
    */
@@ -83,6 +112,15 @@ public abstract class InMemorySessionManager<T extends SessionInfo>
   protected final Map<String, T> getSessions()
   {
     return _roSessions;
+  }
+
+  /**
+   * @return the lock used to guard access to sessions map.
+   */
+  @Nonnull
+  protected final ReadWriteLock getLock()
+  {
+    return _lock;
   }
 
   /**

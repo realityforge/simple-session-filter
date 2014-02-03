@@ -1,5 +1,7 @@
 package org.realityforge.ssf;
 
+import java.util.concurrent.CyclicBarrier;
+import java.util.concurrent.locks.ReadWriteLock;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
@@ -35,5 +37,95 @@ public class SimpleSessionManagerTest
     assertTrue( sm.invalidateSession( sessionInfo.getSessionID() ) );
     assertFalse( sm.invalidateSession( sessionInfo.getSessionID() ) );
     assertNull( sm.getSession( sessionInfo.getSessionID() ) );
+  }
+
+  @Test
+  public void locking()
+    throws Exception
+  {
+    final SimpleSessionManager sm = new SimpleSessionManager();
+    final ReadWriteLock lock = sm.getLock();
+
+    // Variable used to pass data back from threads
+    final SimpleSessionInfo[] sessions = new SimpleSessionInfo[ 2 ];
+
+    lock.readLock().lock();
+
+    // Make sure createSession can not complete if something has a read lock
+    final CyclicBarrier end = go( new Runnable()
+    {
+      @Override
+      public void run()
+      {
+        sessions[ 0 ] = sm.createSession();
+      }
+    } );
+
+    assertNull( sessions[ 0 ] );
+    lock.readLock().unlock();
+    end.await();
+    assertNotNull( sessions[ 0 ] );
+
+    lock.writeLock().lock();
+
+    // Make sure getSession can acquire a read lock
+    final CyclicBarrier end2 = go( new Runnable()
+    {
+      @Override
+      public void run()
+      {
+        sessions[ 1 ] = sm.getSession( sessions[ 0 ].getSessionID() );
+      }
+    } );
+
+    assertNull( sessions[ 1 ] );
+    lock.writeLock().unlock();
+    end2.await();
+    assertNotNull( sessions[ 1 ] );
+
+    lock.readLock().lock();
+
+    final Boolean[] invalidated = new Boolean[ 1 ];
+    // Make sure createSession can not complete if something has a read lock
+    final CyclicBarrier end3 = go( new Runnable()
+    {
+      @Override
+      public void run()
+      {
+        invalidated[ 0 ] = sm.invalidateSession( sessions[ 0 ].getSessionID() );
+      }
+    } );
+
+    assertNull( invalidated[ 0 ] );
+    lock.readLock().unlock();
+    end3.await();
+    assertEquals( invalidated[ 0 ], Boolean.TRUE );
+  }
+
+  private CyclicBarrier go( final Runnable target )
+    throws Exception
+  {
+    final CyclicBarrier start = new CyclicBarrier( 2 );
+    final CyclicBarrier stop = new CyclicBarrier( 2 );
+    new Thread( new Runnable()
+    {
+      @Override
+      public void run()
+      {
+        try
+        {
+          start.await();
+          target.run();
+          stop.await();
+        }
+        catch ( Exception e )
+        {
+          // Ignored
+        }
+      }
+    } ).start();
+    start.await();
+    Thread.sleep( 1 );
+    return stop;
   }
 }
