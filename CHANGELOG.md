@@ -1,4 +1,6 @@
 ## 0.3:
+* Make the InMemorySessionManager.getSessions() return an unmodifiable map to avoid invalid modification
+  of the sessions map.
 * Improve the javadocs of InMemorySessionManager.
 
 ## 0.2:
