@@ -1,4 +1,5 @@
 require 'buildr/git_auto_version'
+require 'buildr/gpg'
 
 PROVIDED_DEPS = [:javax_servlet, :javax_annotation]
 
