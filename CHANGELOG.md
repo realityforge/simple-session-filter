@@ -1,3 +1,6 @@
+## 0.4:
+* Avoid marking InMemorySessionManager as Serializable as not all sub-classes are Serializable.
+
 ## 0.3:
 * Backport InMemorySessionManager.removeIdleSessions from downstream applications. This supports removal
   of sessions that exceed an idle threshold.

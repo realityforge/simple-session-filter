@@ -1,6 +1,5 @@
 package org.realityforge.ssf;
 
-import java.io.Serializable;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -15,7 +14,7 @@ import javax.annotation.Nullable;
  * An extremely simple session manager that uses in memory session management.
  */
 public abstract class InMemorySessionManager<T extends SessionInfo>
-  implements SessionManager<T>, Serializable
+  implements SessionManager<T>
 {
   private final ReadWriteLock _lock = new ReentrantReadWriteLock();
   private final Map<String, T> _sessions = new HashMap<>();
