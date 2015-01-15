@@ -1,5 +1,6 @@
 package org.realityforge.ssf;
 
+import java.util.Set;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
@@ -26,6 +27,14 @@ public interface SessionManager<T extends SessionInfo>
    */
   @Nullable
   T getSession( @Nonnull String sessionID );
+
+  /**
+   * Return the st of valid session ids.
+   *
+   * @return the set of valid session ids.
+   */
+  @Nonnull
+  Set<String> getSessionIDs();
 
   /**
    * Invalidate session with specified session ID.
