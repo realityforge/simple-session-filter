@@ -1,3 +1,5 @@
+## 0.6 (Pending):
+
 ## 0.5:
 * Add SessionManager.getSessionIDs() to expose the list of sessions in manager.
 * Add SessionInfo.getAttributeKeys() to expose the list of attributes in session.
