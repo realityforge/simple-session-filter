@@ -1,4 +1,5 @@
 ## 0.5 (Pending):
+* Add SessionInfo.getAttributeKeys() to expose the list of attributes in session.
 
 ## 0.4:
 * Avoid marking InMemorySessionManager as Serializable as not all sub-classes are Serializable.

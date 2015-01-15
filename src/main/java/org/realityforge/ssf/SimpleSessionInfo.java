@@ -3,6 +3,7 @@ package org.realityforge.ssf;
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
@@ -23,6 +24,13 @@ public class SimpleSessionInfo
   protected void setSessionID( final String sessionID )
   {
     _sessionID = sessionID;
+  }
+
+  @Nonnull
+  @Override
+  public Set<String> getAttributeKeys()
+  {
+    return _attributes.keySet();
   }
 
   @Nonnull

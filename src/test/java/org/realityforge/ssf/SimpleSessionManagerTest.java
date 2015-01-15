@@ -18,10 +18,13 @@ public class SimpleSessionManagerTest
     assertNotNull( sessionInfo );
     assertNotNull( sessionInfo.getSessionID() );
     assertEquals( sessionInfo.getAttribute( "Username" ), null );
+    assertEquals( sessionInfo.getAttributeKeys().size(), 0 );
     sessionInfo.setAttribute( "Username", "Bob" );
     assertEquals( sessionInfo.getAttribute( "Username" ), "Bob" );
+    assertEquals( sessionInfo.getAttributeKeys().size(), 1 );
     sessionInfo.removeAttribute( "Username" );
     assertEquals( sessionInfo.getAttribute( "Username" ), null );
+    assertEquals( sessionInfo.getAttributeKeys().size(), 0 );
     assertEquals( sessionInfo.getCreatedAt(), sessionInfo.getLastAccessedAt() );
     assertTrue( System.currentTimeMillis() - sessionInfo.getCreatedAt() < 100L );
     assertTrue( System.currentTimeMillis() - sessionInfo.getLastAccessedAt() < 100L );
