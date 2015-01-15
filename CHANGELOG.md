@@ -1,3 +1,5 @@
+## 0.5 (Pending):
+
 ## 0.4:
 * Avoid marking InMemorySessionManager as Serializable as not all sub-classes are Serializable.
 
