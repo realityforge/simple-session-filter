@@ -2,9 +2,11 @@ package org.realityforge.ssf;
 
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Set;
 import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 import javax.annotation.Nonnull;
@@ -80,6 +82,21 @@ public abstract class InMemorySessionManager<T extends SessionInfo>
       sessionInfo.updateAccessTime();
     }
     return sessionInfo;
+  }
+
+  @Nonnull
+  @Override
+  public Set<String> getSessionIDs()
+  {
+    _lock.readLock().lock();
+    try
+    {
+      return new HashSet<>( _sessions.keySet() );
+    }
+    finally
+    {
+      _lock.readLock().unlock();
+    }
   }
 
   /**

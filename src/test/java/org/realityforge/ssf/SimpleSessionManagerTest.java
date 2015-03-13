@@ -13,15 +13,20 @@ public class SimpleSessionManagerTest
   {
     final SimpleSessionManager sm = new SimpleSessionManager();
     assertEquals( sm.getSessionKey(), "sid" );
+    assertEquals( sm.getSessionIDs().size(), 0 );
     assertEquals( sm.getSession( "MySessionID" ), null );
     final SessionInfo sessionInfo = sm.createSession();
     assertNotNull( sessionInfo );
     assertNotNull( sessionInfo.getSessionID() );
+    assertEquals( sm.getSessionIDs().size(), 1 );
     assertEquals( sessionInfo.getAttribute( "Username" ), null );
+    assertEquals( sessionInfo.getAttributeKeys().size(), 0 );
     sessionInfo.setAttribute( "Username", "Bob" );
     assertEquals( sessionInfo.getAttribute( "Username" ), "Bob" );
+    assertEquals( sessionInfo.getAttributeKeys().size(), 1 );
     sessionInfo.removeAttribute( "Username" );
     assertEquals( sessionInfo.getAttribute( "Username" ), null );
+    assertEquals( sessionInfo.getAttributeKeys().size(), 0 );
     assertEquals( sessionInfo.getCreatedAt(), sessionInfo.getLastAccessedAt() );
     assertTrue( System.currentTimeMillis() - sessionInfo.getCreatedAt() < 100L );
     assertTrue( System.currentTimeMillis() - sessionInfo.getLastAccessedAt() < 100L );
@@ -35,6 +40,7 @@ public class SimpleSessionManagerTest
     assertNotEquals( sessionInfo.getCreatedAt(), sessionInfo.getLastAccessedAt() );
 
     assertTrue( sm.invalidateSession( sessionInfo.getSessionID() ) );
+    assertEquals( sm.getSessionIDs().size(), 0 );
     assertFalse( sm.invalidateSession( sessionInfo.getSessionID() ) );
     assertNull( sm.getSession( sessionInfo.getSessionID() ) );
   }

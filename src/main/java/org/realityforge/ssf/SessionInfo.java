@@ -1,6 +1,7 @@
 package org.realityforge.ssf;
 
 import java.io.Serializable;
+import java.util.Set;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
@@ -14,6 +15,12 @@ public interface SessionInfo
    */
   @Nonnull
   String getSessionID();
+
+  /**
+   * @return the attribute keys for session.
+   */
+  @Nonnull
+  Set<String> getAttributeKeys();
 
   /**
    * @param key the attribute key to return.
