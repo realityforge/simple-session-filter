@@ -1,3 +1,5 @@
+## 0.7 (Pending):
+
 ## 0.6:
 * Ensure InMemorySessionManager and SimpleSessionManager can be CDI beans by removing final methods.
   Add test to enforce these requirements.
