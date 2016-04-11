@@ -127,7 +127,7 @@ public abstract class InMemorySessionManager<T extends SessionInfo>
    * @return an unmodifiable map containing the set of sessions.
    */
   @Nonnull
-  protected final Map<String, T> getSessions()
+  protected Map<String, T> getSessions()
   {
     return _roSessions;
   }
@@ -136,7 +136,7 @@ public abstract class InMemorySessionManager<T extends SessionInfo>
    * @return the lock used to guard access to sessions map.
    */
   @Nonnull
-  protected final ReadWriteLock getLock()
+  protected ReadWriteLock getLock()
   {
     return _lock;
   }

@@ -7,3 +7,5 @@ artifacts:
   javax_annotation: com.google.code.findbugs:jsr305:jar:2.0.1
 
   mockito: org.mockito:mockito-all:jar:1.9.5
+
+  guiceyloops: org.realityforge.guiceyloops:guiceyloops:jar:0.67

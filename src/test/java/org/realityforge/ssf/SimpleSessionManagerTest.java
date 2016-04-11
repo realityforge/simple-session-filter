@@ -2,11 +2,19 @@ package org.realityforge.ssf;
 
 import java.util.concurrent.CyclicBarrier;
 import java.util.concurrent.locks.ReadWriteLock;
+import org.realityforge.guiceyloops.server.AssertUtil;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
 public class SimpleSessionManagerTest
 {
+  @Test
+  public void isCdiType()
+  {
+    AssertUtil.assertNoFinalMethodsForCDI( SimpleSessionManager.class );
+    AssertUtil.assertNoFinalMethodsForCDI( InMemorySessionManager.class );
+  }
+
   @Test
   public void basicWorkflow()
     throws Exception

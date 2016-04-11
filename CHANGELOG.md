@@ -1,4 +1,6 @@
-## 0.6 (Pending):
+## 0.6:
+* Ensure InMemorySessionManager and SimpleSessionManager can be CDI beans by removing final methods.
+  Add test to enforce these requirements.
 
 ## 0.5:
 * Add SessionManager.getSessionIDs() to expose the list of sessions in manager.
