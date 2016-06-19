@@ -2,6 +2,7 @@ simple-session-filter
 =====================
 
 [![Build Status](https://secure.travis-ci.org/realityforge/simple-session-filter.png?branch=master)](http://travis-ci.org/realityforge/simple-session-filter)
+[<img src="https://img.shields.io/maven-central/v/org.realityforge.ssf/simple-session-filter.svg?label=latest%20release"/>](http://search.maven.org/#search%7Cga%7C1%7Cg%3A%22org.realityforge.ssf%22%20a%3A%22simple-session-filter%22)
 
 A very simple servlet filter that makes it easy to perform custom session management.
 
