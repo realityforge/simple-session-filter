@@ -166,13 +166,10 @@ public abstract class InMemorySessionManager<T extends SessionInfo>
       while ( iterator.hasNext() )
       {
         final T session = iterator.next().getValue();
-        synchronized ( session )
+        if ( now - session.getLastAccessedAt() > maxIdleTime )
         {
-          if ( now - session.getLastAccessedAt() > maxIdleTime )
-          {
-            iterator.remove();
-            removedSessions++;
-          }
+          iterator.remove();
+          removedSessions++;
         }
       }
     }

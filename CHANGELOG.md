@@ -1,4 +1,5 @@
 ## 0.7 (Pending):
+* Remove synchronization in InMemorySessionManager to avoid potential deadlocks.
 
 ## 0.6:
 * Ensure InMemorySessionManager and SimpleSessionManager can be CDI beans by removing final methods.
