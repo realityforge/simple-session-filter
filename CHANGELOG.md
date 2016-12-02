@@ -1,4 +1,4 @@
-## 0.7 (Pending):
+## 0.7:
 * Remove synchronization in InMemorySessionManager to avoid potential deadlocks.
 
 ## 0.6:
