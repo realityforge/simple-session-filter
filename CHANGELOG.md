@@ -1,4 +1,4 @@
-## 0.8 (Pending):
+## 0.8:
 * Integrate with the `simple-keycloak-service` to provide basic authorization on sessions.
 * Make `SessionID` immutable in `SimpleSessionInfo`.
 
