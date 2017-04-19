@@ -1,7 +1,7 @@
 require 'buildr/git_auto_version'
 require 'buildr/gpg'
 
-PROVIDED_DEPS = [:javax_servlet, :javax_annotation]
+PROVIDED_DEPS = [:javaee_api, :javax_annotation]
 
 desc 'A simple servlet filter for implementing custom session management'
 define 'simple-session-filter' do
