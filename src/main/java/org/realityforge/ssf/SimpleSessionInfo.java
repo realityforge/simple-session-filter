@@ -10,20 +10,15 @@ import javax.annotation.Nullable;
 public class SimpleSessionInfo
   implements SessionInfo, Serializable
 {
-  private String _sessionID;
+  private final String _sessionID;
   private long _createdAt;
   private long _lastAccessedAt;
   private Map<String, Serializable> _attributes = new HashMap<>();
 
   public SimpleSessionInfo( @Nonnull final String sessionID )
   {
-    setSessionID( sessionID );
-    _createdAt = _lastAccessedAt = System.currentTimeMillis();
-  }
-
-  protected void setSessionID( final String sessionID )
-  {
     _sessionID = sessionID;
+    _createdAt = _lastAccessedAt = System.currentTimeMillis();
   }
 
   @Nonnull

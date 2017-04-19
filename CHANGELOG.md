@@ -1,4 +1,5 @@
 ## 0.8 (Pending):
+* Make `SessionID` immutable in `SimpleSessionInfo`.
 
 ## 0.7:
 * Remove synchronization in InMemorySessionManager to avoid potential deadlocks.
