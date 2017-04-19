@@ -6,8 +6,8 @@ PROVIDED_DEPS = [:javax_servlet, :javax_annotation]
 desc 'A simple servlet filter for implementing custom session management'
 define 'simple-session-filter' do
   project.group = 'org.realityforge.ssf'
-  compile.options.source = '1.7'
-  compile.options.target = '1.7'
+  compile.options.source = '1.8'
+  compile.options.target = '1.8'
   compile.options.lint = 'all'
 
   project.version = ENV['PRODUCT_VERSION'] if ENV['PRODUCT_VERSION']
