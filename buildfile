@@ -20,7 +20,7 @@ define 'simple-session-filter' do
   compile.with PROVIDED_DEPS
 
   test.using :testng
-  test.with :mockito, :guiceyloops
+  test.with :mockito, :guiceyloops, :glassfish_embedded
 
   package(:jar)
   package(:sources)

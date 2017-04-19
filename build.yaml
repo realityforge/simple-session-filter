@@ -8,4 +8,6 @@ artifacts:
 
   mockito: org.mockito:mockito-all:jar:1.9.5
 
+  glassfish_embedded: fish.payara.extras:payara-embedded-all:jar:4.1.1.171.1
+
   guiceyloops: org.realityforge.guiceyloops:guiceyloops:jar:0.67
