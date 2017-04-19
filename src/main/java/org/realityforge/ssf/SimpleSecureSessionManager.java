@@ -17,7 +17,7 @@ public class SimpleSecureSessionManager
   protected SimpleSessionInfo newSessionInfo()
   {
     final OidcKeycloakAccount account = _authService.getAccount();
-    final String userID = account.getKeycloakSecurityContext().getIdToken().getId();
+    final String userID = account.getKeycloakSecurityContext().getToken().getId();
     final String sessionID = UUID.randomUUID().toString();
     return new SimpleSessionInfo( userID, sessionID );
   }

@@ -33,12 +33,11 @@ public class SimpleSecureSessionManagerTest
     final String userID = ValueUtil.randomString();
 
     final OidcKeycloakAccount account = mock( OidcKeycloakAccount.class );
-    final IDToken idToken = new IDToken();
-    setField( idToken, userID );
+    final AccessToken token = new AccessToken();
+    setField( token, userID );
 
     final KeycloakSecurityContext context =
-      new KeycloakSecurityContext( ValueUtil.randomString(), new AccessToken(), ValueUtil.randomString(),
-                                   idToken );
+      new KeycloakSecurityContext( ValueUtil.randomString(), token, ValueUtil.randomString(), new IDToken() );
     when( account.getKeycloakSecurityContext() ).thenReturn( context );
     when( authService.getAccount() ).thenReturn( account );
 

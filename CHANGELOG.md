@@ -1,3 +1,6 @@
+## 0.9:
+* Move to using the Access token rather than the ID token to identify subject in secured sessions. 
+
 ## 0.8:
 * Integrate with the `simple-keycloak-service` to provide basic authorization on sessions.
 * Make `SessionID` immutable in `SimpleSessionInfo`.
