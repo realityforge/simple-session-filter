@@ -11,3 +11,10 @@ artifacts:
   glassfish_embedded: fish.payara.extras:payara-embedded-all:jar:4.1.1.171.1
 
   guiceyloops: org.realityforge.guiceyloops:guiceyloops:jar:0.67
+
+  keycloak_core: org.keycloak:keycloak-core:jar:2.0.0.Final
+  keycloak_common: org.keycloak:keycloak-common:jar:2.0.0.Final
+  keycloak_adapter_core: org.keycloak:keycloak-adapter-core:jar:2.0.0.Final
+  keycloak_adapter_spi: org.keycloak:keycloak-adapter-spi:jar:2.0.0.Final
+
+  simple_keycloak_service: org.realityforge.keycloak.sks:simple-keycloak-service:jar:0.1
