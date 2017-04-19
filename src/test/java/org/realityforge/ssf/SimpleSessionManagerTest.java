@@ -25,6 +25,7 @@ public class SimpleSessionManagerTest
     assertEquals( sm.getSession( "MySessionID" ), null );
     final SessionInfo sessionInfo = sm.createSession();
     assertNotNull( sessionInfo );
+    assertNull( sessionInfo.getUserID() );
     assertNotNull( sessionInfo.getSessionID() );
     assertEquals( sm.getSessionIDs().size(), 1 );
     assertEquals( sessionInfo.getAttribute( "Username" ), null );

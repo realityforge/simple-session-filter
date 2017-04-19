@@ -11,6 +11,12 @@ import javax.annotation.Nullable;
 public interface SessionInfo
 {
   /**
+   * @return an opaque ID representing user that created session.
+   */
+  @Nullable
+  String getUserID();
+
+  /**
    * @return an opaque ID representing session.
    */
   @Nonnull

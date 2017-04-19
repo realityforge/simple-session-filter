@@ -13,6 +13,6 @@ public class SimpleSessionManager
   protected SimpleSessionInfo newSessionInfo()
   {
     final String sessionID = UUID.randomUUID().toString();
-    return new SimpleSessionInfo( sessionID );
+    return new SimpleSessionInfo( null, sessionID );
   }
 }
