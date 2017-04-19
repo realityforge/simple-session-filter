@@ -39,11 +39,26 @@ public class SimpleSecureSessionManagerTest
     final KeycloakSecurityContext context =
       new KeycloakSecurityContext( ValueUtil.randomString(), token, ValueUtil.randomString(), new IDToken() );
     when( account.getKeycloakSecurityContext() ).thenReturn( context );
-    when( authService.getAccount() ).thenReturn( account );
+    when( authService.findAccount() ).thenReturn( account );
 
     final SessionInfo sessionInfo = sm.createSession();
     assertNotNull( sessionInfo );
     assertEquals( sessionInfo.getUserID(), userID );
+  }
+
+  @Test
+  public void supportUnAuthenticated()
+    throws Exception
+  {
+    final SimpleAuthService authService = mock( SimpleAuthService.class );
+    final SimpleSecureSessionManager sm = new SimpleSecureSessionManager();
+    setField( sm, authService );
+
+    when( authService.findAccount() ).thenReturn( null );
+
+    final SessionInfo sessionInfo = sm.createSession();
+    assertNotNull( sessionInfo );
+    assertEquals( sessionInfo.getUserID(), null );
   }
 
   private void setField( @Nonnull final JsonWebToken object, @Nonnull final String value )
