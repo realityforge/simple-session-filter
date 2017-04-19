@@ -28,12 +28,19 @@ public class SimpleSessionInfo
     return _attributes.keySet();
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Nonnull
+  @Override
   public String getSessionID()
   {
     return _sessionID;
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Nullable
   @Override
   public Serializable getAttribute( @Nonnull final String key )
@@ -41,28 +48,46 @@ public class SimpleSessionInfo
     return _attributes.get( key );
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public void setAttribute( @Nonnull final String key, @Nonnull final Serializable value )
   {
     _attributes.put( key, value );
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public void removeAttribute( @Nonnull final String key )
   {
     _attributes.remove( key );
   }
 
+  /**
+   * {@inheritDoc}
+   */
+  @Override
   public long getCreatedAt()
   {
     return _createdAt;
   }
 
+  /**
+   * {@inheritDoc}
+   */
+  @Override
   public long getLastAccessedAt()
   {
     return _lastAccessedAt;
   }
 
+  /**
+   * {@inheritDoc}
+   */
+  @Override
   public void updateAccessTime()
   {
     _lastAccessedAt = System.currentTimeMillis();
